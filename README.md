@@ -44,11 +44,9 @@ cd frontend
 npm install
 npm start
 
-
+```
 ## 🌍 Deployment Links
 - Frontend (Vercel/Netlify) → [Coming Soon]
 
 - Backend (Render) → [Coming Soon]
 
-
-## 📂 Project Structure
