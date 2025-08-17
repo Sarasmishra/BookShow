@@ -46,7 +46,7 @@ npm start
 
 ```
 ## 🌍 Deployment Links
-- Frontend (Vercel/Netlify) → [Coming Soon]
+- Frontend (Vercel/Netlify) → https://bookshow-1-i5nt.onrender.com/
 
-- Backend (Render) → [Coming Soon]
+- Backend (Render) → https://bookshow-888r.onrender.com/
 
