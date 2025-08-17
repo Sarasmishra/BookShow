@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const AddBook = () => {
   const { token } = useSelector((state) => state.auth);
@@ -27,7 +28,7 @@ const AddBook = () => {
   useEffect(() => {
     const fetchAuthors = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/authors/all', {
+        const res = await axios.get(`${BASE_URL}/api/authors/all`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAuthors(res.data);
@@ -67,7 +68,7 @@ const AddBook = () => {
     form.append('coverImage', coverImage); // must match backend's multer field
 
     try {
-      const res = await axios.post('http://localhost:5000/api/books', form, {
+      const res = await axios.post(`${BASE_URL}/api/books`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

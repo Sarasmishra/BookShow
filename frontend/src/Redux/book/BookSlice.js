@@ -1,6 +1,7 @@
 // src/Redux/book/bookSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const fetchBooks = createAsyncThunk(
     "book/fetchBooks",
@@ -17,7 +18,7 @@ export const fetchBooks = createAsyncThunk(
         queryParams.append("page", page);
         queryParams.append("limit", limit);
   
-        const res = await axios.get(`http://localhost:5000/api/books?${queryParams.toString()}`, {
+        const res = await axios.get(`${BASE_URL}/api/books?${queryParams.toString()}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -34,7 +35,7 @@ export const fetchBooks = createAsyncThunk(
 // Get single book
 export const fetchBookById = createAsyncThunk("book/fetchBookById", async ({ id, token }, thunkAPI) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/books/${id}`, {
+    const res = await axios.get(`${BASE_URL}/api/books/${id}`, {
       headers: {
         Authorization: `Bearer ${token.token}`,
       },
@@ -51,7 +52,7 @@ export const fetchAllBooksRaw = createAsyncThunk(
   "book/fetchAllBooksRaw",
   async (token, thunkAPI) => {
     try {
-      const res = await axios.get("http://localhost:5000/api/books/all", {
+      const res = await axios.get(`${BASE_URL}/api/books/all`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -68,7 +69,7 @@ export const updateBookById = createAsyncThunk(
   "book/updateBook",
   async ({ id, updatedData, token }, thunkAPI) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/books/${id}`, updatedData, {
+      const res = await axios.put(`${BASE_URL}/api/books/${id}`, updatedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -84,7 +85,7 @@ export const deleteBookById = createAsyncThunk(
   "book/deleteBook",
   async ({ id, token }, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:5000/api/books/${id}`, {
+      await axios.delete(`${BASE_URL}/api/books/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -101,7 +102,7 @@ export const submitReview = createAsyncThunk(
   async ({ id, token, rating, comment  }, thunkAPI) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/books/${id}/review`,
+        `${BASE_URL}/api/books/${id}/review`,
         {rating,comment},
         {
           headers: { Authorization: `Bearer ${token}` },

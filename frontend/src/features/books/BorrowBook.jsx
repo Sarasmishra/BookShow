@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const BorrowBook = () => {
   const { token } = useSelector((state) => state.auth);
@@ -11,7 +12,7 @@ const BorrowBook = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/books', {
+        const res = await axios.get(`${BASE_URL}/api/books`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const available = res.data.filter((book) => book.copiesAvailable > 0);
@@ -33,7 +34,7 @@ const BorrowBook = () => {
     setMessage('');
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/borrow',
+        `${BASE_URL}/api/borrow`,
         form,
         {
           headers: { Authorization: `Bearer ${token}` },

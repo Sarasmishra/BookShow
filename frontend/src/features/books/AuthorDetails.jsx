@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const AuthorDetails = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const AuthorDetails = () => {
   useEffect(() => {
     const fetchAuthor = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/authors/${id}`, {
+        const res = await axios.get(`${BASE_URL}/api/authors/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAuthor(res.data);

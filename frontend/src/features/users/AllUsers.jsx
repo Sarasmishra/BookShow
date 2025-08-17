@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import Modal from 'react-modal';
 import Spinner from '../../components/common/Spinner';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 Modal.setAppElement('#root'); // For accessibility
 
@@ -21,7 +22,7 @@ const AllUsers = () => {
       return;
     }
     try {
-      const res = await axios.get('http://localhost:5000/api/users', {
+      const res = await axios.get(`${BASE_URL}/api/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data);
@@ -43,7 +44,7 @@ const AllUsers = () => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${deleteId}`, {
+      await axios.delete(`${BASE_URL}/api/users/${deleteId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('User deleted', { autoClose: 1000 });

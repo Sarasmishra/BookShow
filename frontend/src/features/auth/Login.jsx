@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../Redux/auth/AuthSlice';
 import { toast } from 'react-toastify';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -20,7 +22,7 @@ const Login = () => {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:5000/api/login', formData);
+      const res = await axios.post(`${BASE_URL}/api/login` , formData);
 
       // Optionally store token
       // localStorage.setItem('token', res.data.token);

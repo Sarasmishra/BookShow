@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -20,12 +20,14 @@ const Profile = () => {
   const [avatarPreview, setAvatarPreview] = useState('');
   const [avatarFile, setAvatarFile] = useState(null);
 
+
+
   const userId = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/${userId._id}`, {
+        const response = await axios.get(`${BASE_URL}/api/users/${userId._id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -74,7 +76,7 @@ const Profile = () => {
       }
 
       const res = await axios.put(
-        `http://localhost:5000/api/users/${user._id}`,
+        `${BASE_URL}/api/users/${user._id}`,
         formData,
         {
           headers: {

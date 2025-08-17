@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 // Async Thunk to fetch user profile using /users/:id
 export const getUserProfile = createAsyncThunk(
   "auth/getUserProfile",
   async ({ token, id }, thunkAPI) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/users/${id}`, {
+      const res = await axios.get(`${BASE_URL}/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

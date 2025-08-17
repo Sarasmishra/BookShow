@@ -2,10 +2,11 @@
 import axios from "axios";
 import { logout } from "../Redux/auth/AuthSlice";
 import store from "../Redux/store"; // wherever your store is
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: `${BASE_URL}/api`,
 });
 
 // Add interceptor to check for expired/invalid token

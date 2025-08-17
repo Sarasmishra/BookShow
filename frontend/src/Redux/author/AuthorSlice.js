@@ -1,6 +1,8 @@
 // src/Redux/author/authorSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 // Fetch all authors (supports filtering + pagination)
 export const fetchAuthors = createAsyncThunk(
@@ -17,7 +19,7 @@ export const fetchAuthors = createAsyncThunk(
       queryParams.append("limit", limit);
 
       const res = await axios.get(
-        `http://localhost:5000/api/authors?${queryParams.toString()}`,
+        `${BASE_URL}/api/authors?${queryParams.toString()}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -37,7 +39,7 @@ export const fetchAuthorById = createAsyncThunk(
   "author/fetchAuthorById",
   async ({ id, token }, thunkAPI) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/authors/${id}`, {
+      const res = await axios.get(`${BASE_URL}/api/authors/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.data;
@@ -53,7 +55,7 @@ export const fetchAllAuthors = createAsyncThunk(
   async (token , thunkAPI) => {
     console.log("token",token)
     try {
-      const res = await axios.get(`http://localhost:5000/api/authors/all`, {
+      const res = await axios.get(`${BASE_URL}/api/authors/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.data;
@@ -69,7 +71,7 @@ export const createAuthor = createAsyncThunk(
   "author/createAuthor",
   async ({ formData, token }, thunkAPI) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/authors", formData, {
+      const res = await axios.post(`${BASE_URL}/api/authors`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -87,7 +89,7 @@ export const updateAuthor = createAsyncThunk(
   'author/updateAuthor',
   async ({ id, formData, token }, thunkAPI) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/authors/${id}`, formData, {
+      const res = await axios.put(`${BASE_URL}/api/authors/${id}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.data;
@@ -102,7 +104,7 @@ export const deleteAuthor = createAsyncThunk(
   'author/deleteAuthor',
   async ({ id, token }, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:5000/api/authors/${id}`, {
+      await axios.delete(`${BASE_URL}/api/authors/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return id; // return deleted ID for removal

@@ -2,13 +2,15 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 // Fetch user's borrowings
 export const fetchMyBorrowings = createAsyncThunk(
   "borrowing/fetchMyBorrowings",
   async (token, thunkAPI) => {
     try {
-      const res = await axios.get("http://localhost:5000/api/my-borrowings", {
+      const res = await axios.get(`${BASE_URL}/api/my-borrowings`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.data.allBorrowing;
@@ -24,7 +26,7 @@ export const returnBook = createAsyncThunk(
   async ({ transactionId, token }, thunkAPI) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/return/${transactionId}`,
+        `${BASE_URL}/api/return/${transactionId}`,
         null,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -42,7 +44,7 @@ export const getAllBorrowings = createAsyncThunk(
     "borrowing/getAllBorrowings",
     async (token, thunkAPI) => {
       try {
-        const res = await axios.get("http://localhost:5000/api/borrowings", {
+        const res = await axios.get(`${BASE_URL}/api/borrowings`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         return res.data.AllTransactions || [];
@@ -58,7 +60,7 @@ export const borrowBook = createAsyncThunk(
   async ({ bookId, dueDate, token }, thunkAPI) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/borrow",
+        `${BASE_URL}/api/borrow`,
         { bookId, dueDate },
         { headers: { Authorization: `Bearer ${token}` } }
       );
